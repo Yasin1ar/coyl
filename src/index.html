@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>COYL - Chapter Of Your Life</title>
+    <link rel="icon" type="image/x-icon" href="../assets/coyl.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="datetime-container">
+        <span id="time-display"></span>
+        <span id="date-display"></span>
+    </div>
+    <div class="container">
+        <main>
+            <div id="notesLayer" class="notes-layer" aria-label="Sticky notes layer"></div>
+            <div class="fab-left-container" aria-label="Sticky note mode">
+                <button id="notesModeToggle" class="fab-main" title="Toggle Sticky Note Mode" aria-pressed="false">📝</button>
+            </div>
+            <div class="fab-container" aria-label="Backup controls">
+                <div class="fab-actions" id="fabActions">
+                    <a id="githubLink" class="fab-action" href="https://github.com/yasin1ar/coyl" target="_blank" rel="noopener" title="Open GitHub">GitHub</a>
+                    <button id="themeBtn" class="fab-action" title="Theme & Colors">Theme</button>
+                    <button id="exportBtn" class="fab-action" title="Export JSON">Export</button>
+                    <button id="importBtn" class="fab-action" title="Import JSON">Import</button>
+                    <button id="clearNotesBtn" class="fab-action" title="Clear all sticky notes">Clear Notes</button>
+                </div>
+                <button id="fabToggle" class="fab-main" title="Open actions" aria-expanded="false" aria-controls="fabActions">⤴</button>
+                <input id="importFile" type="file" accept="application/json,.json" style="display:none" />
+            </div>
+            <div class="edit-container">
+                <a href="set-archetype.html">
+                    <img class="edit-button" title="Edit your Archetype" src="../assets/edit-3-svgrepo-com.svg" alt="edit">
+                </a>
+            </div>
+            <section class="hero" id="dashboard">
+                <img id="profileImage" src="../assets/coyl.png" alt="Profile Image" class="profile-image" />
+                <div class="hero-content">
+                    <h1 id="chapterTitle">Loading Chapter <span id="age">N</span>...</h1>
+                    <div class="quote-container">
+                        <p id="quoteDisplay">"Your chosen quote will appear here."</p>
+                        <button id="refreshQuoteBtn" class="refresh-quote-btn" title="Get a new quote">
+                            <img class="edit-button" title="Get new quote" src="../assets/refresh-ccw-alt-svgrepo-com.svg" alt="refresh quote">
+                        </button>
+                    </div>
+                    <p class="timeDisplay">Remaining Time: <span class="numbers" id="remaining"></span></p>
+                    <p class="timeDisplay">Time Passed: <span class="numbers" id="passed"></span></p>
+                </div>
+                <div class="symbols">
+                    <img id="locationSymbol" src="../assets/coyl.png" alt="Archetypal Location" class="archetypical-image" />
+                    <img id="mainSymbol" src="../assets/coyl.png" alt="Archetypal Symbol" class="archetypical-image" />
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

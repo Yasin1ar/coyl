@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COYL - Create Your Archetype</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="../assets/coyl.png">
+    <style>
+        :root {
+            --background-color: #18181b;
+            --card-background: #27272a;
+            --text-primary: #f4f4f5;
+            --text-secondary: #a1a1aa;
+            --border-color: #3f3f46;
+            --accent-color: #eab308;
+            --accent-hover: #ca8a04;
+            --input-background: #3f3f46;
+        }
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 1rem;
+        }
+        .card {
+            background-color: var(--card-background);
+            border-radius: 1rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            max-width: 28rem;
+            padding: 2rem 2.5rem;
+            border: 1px solid var(--border-color);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .header h1 {
+            font-family: 'Lora', serif;
+            font-size: 1.75rem;
+            margin-bottom: 0.25rem;
+        }
+        .header p {
+            color: var(--text-secondary);
+        }
+        .form-fields {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .input-group label {
+            font-weight: 500;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid var(--border-color);
+            background-color: var(--input-background);
+            font-size: 1rem;
+            color: var(--text-primary);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(234, 179, 8, 0.3);
+        }
+        .circle-upload-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .circle-upload {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 2px dashed var(--border-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+            background-color: var(--input-background);
+            transition: border-color 0.2s, background-color 0.2s;
+        }
+        .circle-upload:hover {
+            border-color: var(--accent-color);
+            background-color: #3f3f46;
+        }
+        .circle-upload img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .circle-upload span {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            text-align: center;
+            padding: 1rem;
+        }
+        #photoInput {
+            display: none;
+        }
+        .submit-button {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            background-color: var(--accent-color);
+            color: #18181b;
+            font-weight: 700;
+            font-size: 1rem;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-top: 1rem;
+        }
+        .submit-button:hover {
+            background-color: var(--accent-hover);
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="header">
+            <h1>Create Your Archetype</h1>
+            <p>Define the current chapter of your life's story.</p>
+        </div>
+        <div class="form-fields">
+            <div class="input-group">
+                <label for="importBackup">Import From Backup</label>
+                <input type="file" id="importBackup" accept="application/json,.json">
+            </div>
+            <div class="input-group">
+                <label for="dob">Date of Birth</label>
+                <input type="date" id="dob">
+            </div>
+            <div class="input-group">
+                <label for="chapterName">Chapter Name</label>
+                <input type="text" id="chapterName" placeholder="e.g., The Journey Begins">
+            </div>
+            <div class="input-group">
+                <label for="location">Archetypal Location</label>
+                <select id="location">
+                    <option value="">Select a location</option>
+                    <option value="garden" title="The Garden is a symbol of cultivation, creativity, and the ordered beauty of nature. It represents a part of your life where you are actively nurturing growth, whether it's a project, a relationship, or your own personal development.">The Garden</option>
+                    <option value="forest" title="The Forest is the realm of the unknown, the unconscious, and the wild, untamed aspects of your own nature. To enter the Forest is to leave the clear, sunlit path and venture into a world of mystery, instinct, and hidden truths.">The Forest</option>
+                    <option value="mountain" title="The Mountain is a powerful archetype of challenge, aspiration, and the arduous journey toward a higher perspective. It represents a significant goal or obstacle in your life that requires endurance and determination.">The Mountain</option>
+                    <option value="sea" title="The Sea is the archetype of the collective unconscious, the vast and deep expanse of emotion, and the source of all life's possibilities. It represents a connection to the universal mysteries of life and intuition.">The Sea</option>
+                    <option value="desert" title="The Desert is an archetype of purification, solitude, and spiritual testing. It is a landscape stripped bare of all non-essentials, a place where one often finds a deeper connection to the self and to the divine.">The Desert</option>
+                    <option value="river" title="The River is a symbol of the flow of time, life's journey, and the constant process of change. It teaches the lesson of impermanence and the importance of letting go.">The River</option>
+                    <option value="island" title="The Island is an archetype of solitude, isolation, and self-reliance. It represents a state of being separate from the collective, a place for profound self-discovery and inner work.">The Island</option>
+                    <option value="castle" title="The Castle is a powerful symbol of structure, protection, and the sovereign self. It represents the fortress you have built around your values, beliefs, and your identity.">The Castle</option>
+                    <option value="cave" title="The Cave is an archetype of introspection, incubation, and the descent into the inner self. It is a sanctuary from the outer world, a place of potential and rebirth.">The Cave</option>
+                    <option value="labyrinth" title="The Labyrinth is an archetype of the complex and winding journey to the center of the self. It symbolizes a spiritual pilgrimage that requires patience, trust, and focus.">The Labyrinth/Maze</option>
+                    <option value="crossroads" title="The Crossroads is a potent symbol of choice, destiny, and a pivotal turning point in life's journey. It is a place where a decision must be made that will alter the course of your future.">The Crossroads</option>
+                    <option value="house" title="The House is a powerful archetype representing the self, the psyche, and one's place in the world. Each room can symbolize different aspects of your personality, memories, and potentials.">The House/Home</option>
+                    <option value="battlefield" title="The Battlefield is an archetype of conflict, struggle, and the clash of opposing forces. It represents a state of internal or external turmoil where values are tested and courage is required.">The Battlefield</option>
+                    <option value="graveyard" title="The archetype of the Graveyard symbolizes the crucial act of endings, boundaries, and respectful closure. It is a sacred space where the past is laid to rest, marking a clear threshold between what was and what is now.">The Graveyard</option>
+                    <option value="underworld" title="The archetype of the Underworld represents the deepest realm of the unconscious, a symbolic place of death, mystery, and profound transformation. It is the territory of the shadow self.">The Underworld</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="symbol">Archetypal Symbol</label>
+                <select id="symbol">
+                    <option value="">Select a symbol</option>
+                    <option value="fire" title="The archetype of Fire represents the primal, untamed energy of transformation, passion, and purification. It is the spark of life, courage, and divine inspiration.">Fire</option>
+                    <option value="wind" title="The archetype of Wind symbolizes the unseen forces of intellect, change, and the spirit. It is the breath of life, the messenger of new ideas, and the power that sweeps away stagnation.">Wind</option>
+                    <option value="water" title="The archetype of Water represents the deep, flowing currents of the emotional realm, intuition, and the unconscious mind. It is the symbol of adaptability, healing, and mystery.">Water</option>
+                    <option value="sword" title="The archetype of the Sword is a powerful symbol of truth, clarity, and the incisive power of the intellect. It represents the ability to cut through illusion and make difficult decisions.">The Sword</option>
+                    <option value="torch" title="The archetype of the Torch represents enlightenment, knowledge, and the quest for truth in the midst of darkness. It is a beacon of hope and a symbol of consciousness.">The Torch</option>
+                    <option value="tree" title="The archetype of the Tree is a universal symbol of life, growth, and interconnectedness. It represents the bridge between the material and spiritual worlds.">The Tree</option>
+                    <option value="sun" title="The archetype of the Sun is the ultimate symbol of consciousness, vitality, and the radiant power of the self. It represents clarity, optimism, and the masculine principle of action.">The Sun</option>
+                    <option value="moon" title="The archetype of the Moon represents the inner world, the realm of intuition, dreams, and the sacred feminine. It is a symbol of the cyclical nature of life and reflection.">The Moon</option>
+                </select>
+            </div>
+            <div class="circle-upload-container">
+                <label>Your Avatar (Optional)</label>
+                <div class="circle-upload" id="uploadContainer">
+                    <input type="file" id="photoInput" accept="image/*">
+                    <div id="uploadContent">
+                        <span>Click to upload</span>
+                    </div>
+                </div>
+            </div>
+            <button id="submitBtn" class="submit-button">Begin Chapter</button>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const dobInput = document.getElementById('dob');
+            const chapterNameInput = document.getElementById('chapterName');
+            const locationSelect = document.getElementById('location');
+            const symbolSelect = document.getElementById('symbol');
+            const uploadContainer = document.getElementById('uploadContainer');
+            const photoInput = document.getElementById('photoInput');
+            const uploadContent = document.getElementById('uploadContent');
+            const submitBtn = document.getElementById('submitBtn');
+            const importBackup = document.getElementById('importBackup');
+            const storage = window.localStorage;
+
+            const formFields = [dobInput, chapterNameInput, locationSelect, symbolSelect];
+
+            function loadFormData() {
+                dobInput.value = storage.getItem('dob') || '';
+                chapterNameInput.value = storage.getItem('chapterName') || '';
+                locationSelect.value = storage.getItem('location') || '';
+                symbolSelect.value = storage.getItem('symbol') || '';
+                const avatar = storage.getItem('avatar');
+                if (avatar) {
+                    uploadContent.innerHTML = `<img src="${avatar}" alt="Uploaded photo">`;
+                }
+            }
+
+            formFields.forEach(field => {
+                field.addEventListener('input', (e) => {
+                    storage.setItem(e.target.id, e.target.value);
+                });
+            });
+
+            function getAvatarData(file) {
+                return new Promise((resolve, reject) => {
+                    if (!file) {
+                        return resolve(storage.getItem('avatar') || '');
+                    }
+                    const maxSize = 2 * 1024 * 1024;
+                    if (file.size > maxSize) {
+                        return reject(new Error('Image is too large. Please choose a file smaller than 2MB.'));
+                    }
+                    const reader = new FileReader();
+                    reader.onload = () => resolve(reader.result);
+                    reader.onerror = (error) => reject(error);
+                    reader.readAsDataURL(file);
+                });
+            }
+
+            submitBtn.addEventListener('click', async function () {
+                const dob = dobInput.value;
+                const chapterName = chapterNameInput.value;
+                const location = locationSelect.value;
+                const symbol = symbolSelect.value;
+                const file = photoInput.files[0];
+
+                const dobDate = new Date(dob);
+                const sevenYearsAgo = new Date();
+                sevenYearsAgo.setFullYear(new Date().getFullYear() - 7);
+
+                if (!dob || dobDate > sevenYearsAgo) {
+                    alert("You must be at least 7 years old to create an archetype.");
+                    return;
+                }
+                
+                if (!chapterName || !location || !symbol) {
+                    alert('Please fill in all required fields.');
+                    return;
+                }
+
+                try {
+                    const avatar = await getAvatarData(file);
+                    storage.setItem('dob', dob);
+                    storage.setItem('chapterName', chapterName);
+                    storage.setItem('location', location);
+                    storage.setItem('symbol', symbol);
+                    storage.setItem('avatar', avatar);
+                    window.location.href = "index.html";
+                } catch (error) {
+                    console.error('Failed to create archetype:', error);
+                    alert(error.message);
+                }
+            });
+            
+            uploadContainer.addEventListener('click', function () {
+                photoInput.click();
+            });
+
+            photoInput.addEventListener('change', function (e) {
+                const file = e.target.files[0];
+                if (file) {
+                    getAvatarData(file).then(avatarData => {
+                        uploadContent.innerHTML = `<img src="${avatarData}" alt="Uploaded photo">`;
+                        storage.setItem('avatar', avatarData);
+                    }).catch(error => {
+                        alert(error.message);
+                        photoInput.value = '';
+                    });
+                }
+            });
+
+            importBackup.addEventListener('change', (e) => {
+                const file = e.target.files && e.target.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = function (evt) {
+                    try {
+                        const parsed = JSON.parse(evt.target.result);
+                        if (!parsed || typeof parsed !== 'object') throw new Error('Invalid JSON');
+                        Object.keys(parsed).forEach(key => {
+                            if (key === '__metadata') return;
+                            const value = parsed[key];
+                            storage.setItem(key, typeof value === 'string' ? value : JSON.stringify(value));
+                        });
+                        alert('Backup imported. Redirecting to dashboard...');
+                        window.location.href = 'index.html';
+                    } catch (err) {
+                        console.error('Failed to import backup:', err);
+                        alert('Failed to import backup JSON.');
+                    } finally {
+                        importBackup.value = '';
+                    }
+                };
+                reader.readAsText(file);
+            });
+
+            loadFormData();
+        });
+    </script>
+</body>
+</html>
