@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                 'sun': 'sun-svgrepo-com.svg', 'moon': 'moon-stars-svgrepo-com.svg'
             }
         };
-        return `../assets/${map[archetypeType][value] || 'coyl.png'}`;
+        return `assets/${map[archetypeType][value] || 'coyl.png'}`;
     }
 
     async function loadAndDisplayData() {
