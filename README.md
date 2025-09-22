@@ -4,6 +4,8 @@ Welcome to **COYL**, a simple and beautiful dashboard that turns your life into 
 
 ---
 
+![screenshot of the project](src/assets/dashboard.PNG "screenshot of the project")
+
 ### 🤔 What is COYL?
 
 Have you ever felt like you're living through a specific "chapter" of your life? COYL is a web application designed to capture that feeling. It's a personal, visual dashboard that helps you:
